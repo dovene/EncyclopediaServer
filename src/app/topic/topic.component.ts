@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component'
 import { empty, of } from "rxjs";
+import { database } from 'firebase';
 
 @Component({
   selector: 'app-topic',
@@ -24,8 +25,8 @@ export class TopicComponent implements OnInit {
   imageFile: File;
   modalData: ModalDataModel = new ModalDataModel();
 
-  constructor(private topicService: TopicService,
-    private location: Location,
+  constructor(public topicService: TopicService,
+    public location: Location,
     public firestorage: AngularFireStorage,
     public dialog: MatDialog) { }
 
@@ -141,7 +142,7 @@ export class TopicComponent implements OnInit {
         this.modalData.description = "";
         this.modalData.imageUrl = res;
         this.modalData.isOkVisible = true;
-        this.modalData.isOkVisible = false;
+        this.modalData.isCancelVisible = false;
 
         const dialogRef = this.dialog.open(ModalDialogComponent, {
           height: '400px',
@@ -159,8 +160,7 @@ export class TopicComponent implements OnInit {
       this.modalData.description = "No image";
       this.modalData.imageUrl = "";
       this.modalData.isOkVisible = true;
-
-      this.modalData.isOkVisible = false;
+      this.modalData.isCancelVisible = false;
 
       this.dialog.open(ModalDialogComponent, {
 
