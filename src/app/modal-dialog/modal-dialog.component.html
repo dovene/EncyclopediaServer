@@ -1,0 +1,22 @@
+<div>
+    <h2 md-dialog-title>{{modalDataModel.title}} </h2>
+    <hr>
+    <md-dialog-content>
+        {{modalDataModel.description}}    <br>
+      
+      <img class="img-thumbnail" [src]="modalDataModel.imageUrl"alt="Image Unavailable">
+   
+    </md-dialog-content>
+    <hr>
+    <div align="right">
+        <md-dialog-actions>
+            <span *ngIf="modalDataModel.isOkVisible" >
+                <button md-raised-button (click)="onCloseConfirm()">Ok</button>&nbsp;
+            </span>
+            <span *ngIf="modalDataModel.isCancelVisible">
+                <button md-raised-button (click)="onCloseCancel()">Cancel</button>&nbsp;
+            </span>
+        </md-dialog-actions>
+    </div>
+   
+  </div>
