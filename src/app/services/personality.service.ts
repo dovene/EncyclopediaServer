@@ -9,10 +9,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TopicService {
+export class PersonalityService {
 
   constructor(public firestore: AngularFirestore, public storage: AngularFireStorage) {}
-  
   getTopics() {
     let collectionRef = this.firestore.collection('topics', ref => ref.orderBy('name', 'asc'));
     

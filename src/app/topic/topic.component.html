@@ -2,10 +2,20 @@
   class="pull-left">
   Add a new topic
 </button>
-<br />
+<br/>
+<br/>
 
-<form *ngIf="topicForm">
-  <h2 align="left">Informations du projet</h2>
+
+    <!-- put the form here -->
+  
+    <mat-card *ngIf="topicForm">
+        <mat-card-header>
+            <mat-card-title>Nouvel Enregistrement</mat-card-title>
+        </mat-card-header>
+    <mat-card-content>
+
+    <form *ngIf="topicForm">
+
   <table style="border:0px; border-collapse:separate; border-spacing:0.5em;" id="news" cellspacing="0px">
     <tr>
       <td>Nom</td>
@@ -17,6 +27,15 @@
       <td><input type="file" name="file" (change)="handleFileInput($event.target.files)"></td>
     </tr>
 
+    <tr>
+        <td>Date</td>
+      <td> 
+          <input [matDatepicker]="myDatepicker"  [value]="date">
+          <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+      </td>
+     
+    </tr>
 
   </table>
   <br />
@@ -33,6 +52,12 @@
 
 
 </form>
+</mat-card-content>
+<mat-card-actions>
+    <!-- put buttons here -->
+    </mat-card-actions>
+</mat-card>
+
 <br />
 <!-- affichage de la liste des projets -->
 <div class="table-responsive">

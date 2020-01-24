@@ -25,11 +25,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseService } from './services/firebase.service';
-import { AngularFireStorage } from '@angular/fire/storage';
 
 import {ModalDialogComponent} from '../app/modal-dialog/modal-dialog.component';
+import { StoryComponent } from './story/story.component';
+import { PersonalityComponent } from './personality/personality.component';
 
-
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {ModalDialogComponent} from '../app/modal-dialog/modal-dialog.component';
     WelcomeComponent,
     TopicComponent,
     CountryComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    StoryComponent,
+    PersonalityComponent
   ],
   entryComponents: [AvatarDialogComponent, ModalDialogComponent],
   imports: [
@@ -54,11 +58,13 @@ import {ModalDialogComponent} from '../app/modal-dialog/modal-dialog.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-  
+    MatDatepickerModule,
     MatButtonModule,
     MatInputModule,
     MatSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    MatCardModule,
   ],
   providers: [FirebaseService, EditUserResolver],
   bootstrap: [AppComponent],
