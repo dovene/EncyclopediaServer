@@ -33,6 +33,9 @@ import { PersonalityComponent } from './personality/personality.component';
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '../app/helpers/format-datepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +69,9 @@ import {MatCardModule} from '@angular/material/card';
     MatNativeDateModule,
     MatCardModule,
   ],
-  providers: [FirebaseService, EditUserResolver],
+  providers: [FirebaseService, EditUserResolver,
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -12,6 +12,14 @@ export class Topic {
 export class Personality {
     id: string;
     fullName: string;
+    dateOfBirth: Date;
+    dateOfDeath: Date;
+    photoUrl: string;
+}
+
+export class ParsedPersonality {
+    id: string;
+    fullName: string;
     dateOfBirth: string;
     dateOfDeath: string;
     photoUrl: string;

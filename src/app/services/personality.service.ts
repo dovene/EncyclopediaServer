@@ -2,64 +2,72 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import 'rxjs/add/operator/toPromise';
-import {Topic} from '../models/app-models';
-import { finalize } from 'rxjs/operators';
+import {Personality} from '../models/app-models';
 import { Observable } from 'rxjs';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PersonalityService {
 
   constructor(public firestore: AngularFirestore, public storage: AngularFireStorage) {}
-  getTopics() {
-    let collectionRef = this.firestore.collection('topics', ref => ref.orderBy('name', 'asc'));
+  
+  getPersonalities() : Observable<any> {
     
+  let collectionRef = this.firestore.collection('personalities', ref => ref.orderBy('fullName', 'asc'));
+   collectionRef.snapshotChanges().subscribe(res=>{
+     console.log(res)
+   })
     return collectionRef.snapshotChanges();
   }
 
-createTopicWithImage(topic: Topic, imageFile: File){
-
+  create(personality: Personality, imageFile: File){
+    console.log('creation '+personality);
+    let data = {
+      fullName : personality.fullName,
+      dateOfBirth : personality.dateOfBirth ? firestore.Timestamp.fromDate(personality.dateOfBirth) : null,
+      dateOfDeath : personality.dateOfDeath ? firestore.Timestamp.fromDate(personality.dateOfDeath) : null,
+      photoUrl: ""
+    }
   if (imageFile!=null){
     const randomId = Math.random().toString(36).substring(2);
     // this.ref = this.afStorage.ref(randomId);
     // this.task = this.ref.put(event.target.files[0]);
      //const filePath = 'name-your-file-path-here';
      const fileRef = this.storage.ref(randomId);
-   
      fileRef.put(imageFile);
-   
-   
-     topic.imageUrl = randomId;
-  }
- 
-  return this.firestore.collection('topics').add(topic);
- 
+     personality.photoUrl = randomId;
+     data.photoUrl = randomId;
+  } 
+  return this.firestore.collection('personalities').add(data);
+
  }
  
- createTopic(topic: Topic){
-  return this.firestore.collection('topics').add(topic);
-}
 
- updateTopic(topic: Topic, imageFile: File): Promise<any>{
+ update(personality: Personality, imageFile: File): Promise<any>{
+  console.log('update '+personality);
+  let data = {
+    fullName : personality.fullName,
+    dateOfBirth : personality.dateOfBirth ? firestore.Timestamp.fromDate(personality.dateOfBirth) : null,
+    dateOfDeath : personality.dateOfDeath ? firestore.Timestamp.fromDate(personality.dateOfDeath) : null,
+    photoUrl: ""
+  }
   if (imageFile!=null){
     const randomId = Math.random().toString(36).substring(2);
     // this.ref = this.afStorage.ref(randomId);
     // this.task = this.ref.put(event.target.files[0]);
      //const filePath = 'name-your-file-path-here';
      const fileRef = this.storage.ref(randomId);
-   
      fileRef.put(imageFile);
-   
-   
-     topic.imageUrl = randomId;
+     data.photoUrl = randomId;
   }
- 
-   return this.firestore.doc('topics/' + topic.id).update(topic);
+   return this.firestore.doc('personalities/' + personality.id).update(data);
 }
 
-deleteTopic(topic: Topic): Promise<any>{
-   return this.firestore.doc('topics/' + topic.id).delete()  
+delete(personality: Personality): Promise<any>{
+   return this.firestore.doc('personalities/' + personality.id).delete()  
 }
 
 private handleError(error: any): Promise<any> {

@@ -35,6 +35,7 @@ export class CountryComponent implements OnInit {
   getCountries(): void {
     this.countryService.getCountries().subscribe(data => {
       this.countries = data.map(e => {
+        console.log(data);
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
