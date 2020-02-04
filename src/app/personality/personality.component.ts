@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { PersonalityService } from '../services/personality.service';
-import { Personality, ModalDataModel, ParsedPersonality } from '../models/app-models';
+import { Personality, ModalDataModel } from '../models/app-models';
 import { MatDialog } from '@angular/material';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-personality',

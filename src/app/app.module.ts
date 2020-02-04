@@ -15,8 +15,8 @@ import { MenuComponent } from './menu/menu.component';
 
 import { environment } from '../environments/environment';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TopicComponent } from './topic/topic.component';
 import { CountryComponent } from './country/country.component';
@@ -26,8 +26,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseService } from './services/firebase.service';
 
-import {ModalDialogComponent} from '../app/modal-dialog/modal-dialog.component';
-import { StoryComponent } from './story/story.component';
+import { ModalDialogComponent } from '../app/modal-dialog/modal-dialog.component';
 import { PersonalityComponent } from './personality/personality.component';
 
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
@@ -35,6 +34,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from '../app/helpers/format-datepicker';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +48,8 @@ import { AppDateAdapter, APP_DATE_FORMATS } from '../app/helpers/format-datepick
     TopicComponent,
     CountryComponent,
     ModalDialogComponent,
-    StoryComponent,
-    PersonalityComponent
+    PersonalityComponent,
+    ArticleComponent
   ],
   entryComponents: [AvatarDialogComponent, ModalDialogComponent],
   imports: [

@@ -7,7 +7,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {TopicComponent } from './topic/topic.component';
 import {CountryComponent} from './country/country.component';
 import {PersonalityComponent} from './personality/personality.component';
-import {StoryComponent} from './story/story.component';
+import {ArticleComponent} from './article/article.component';
 
 export const rootRouterConfig: Routes = [
 
@@ -18,7 +18,7 @@ export const rootRouterConfig: Routes = [
   { path: 'country', component: CountryComponent },
   { path: 'personality', component: PersonalityComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'story', component: StoryComponent },
+  { path: 'article', component: ArticleComponent },
   { path: 'new-user', component: NewUserComponent },
   { path: 'details/:id', component: EditUserComponent, resolve:{data : EditUserResolver} }
 ];

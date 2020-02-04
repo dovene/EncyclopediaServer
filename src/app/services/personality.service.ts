@@ -4,7 +4,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import 'rxjs/add/operator/toPromise';
 import {Personality} from '../models/app-models';
 import { Observable } from 'rxjs';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase/app';
+
 
 @Injectable({
   providedIn: 'root'

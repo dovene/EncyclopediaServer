@@ -47,3 +47,30 @@ export class ModalDataModel {
     isOkVisible: boolean;
     isCancelVisible: boolean;
 }
+
+export class Article {
+    constructor() {}
+    id: string;
+    title: string;
+    content: string;
+    dateStart:Date;
+    dateEnd:Date;
+    mainPersonality: Personality;
+    secondaryPersonality: Personality;
+    tertiaryPersonality: Personality;
+    otherPersonalities: Personality[];
+    mainTopic: Topic;
+    secondaryTopic: Topic;
+    tertiaryTopic: Topic;
+    otherTopics: Topic[];
+    mainCountry: Country;
+    secondaryCountry: Country;
+    tertiaryCountry: Country;
+    otherCountries: Country[];
+    sourceName: string;
+    sourceUrl: string;
+    mainImage: string;
+    secondaryImage: string;
+    tertiaryImage: string;
+    otherImages: string[];
+}
