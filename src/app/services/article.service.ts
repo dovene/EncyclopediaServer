@@ -21,7 +21,7 @@ export class ArticleService {
         return collectionRef.snapshotChanges();
     }
 
-    create(article: Article, imageFile: File) {
+    create(article: Article, imageFile: File, secondaryImageFile: File) {
         console.log('creation ' + article);
         let data = {
             title: article.title,
@@ -29,24 +29,35 @@ export class ArticleService {
             dateStart: article.dateStart ? firestore.Timestamp.fromDate(article.dateStart) : null,
             dateEnd: article.dateEnd ? firestore.Timestamp.fromDate(article.dateEnd) : null,
             mainImage: "",
+            secondaryImage: "",
             mainCountry: article.mainCountry,
-            mainPersonality: article.mainPersonality,
+            mainPersonality: article.mainPersonality ? article.mainPersonality: null,
             mainTopic: article.mainTopic,
-            sourceName: article.sourceName,
-            sourceUrl: article.sourceUrl,
+            sourceName: article.sourceName ? article.sourceName: "",
+            sourceUrl: article.sourceUrl ? article.sourceUrl : "",
+            secondaryTopic: article.secondaryTopic ? article.secondaryTopic: null,
+            secondaryCountry: article.secondaryCountry ? article.secondaryCountry : null,
+            secondaryPersonality: article.secondaryPersonality ? article.secondaryPersonality : null,
         }
         if (imageFile != null) {
             const randomId = Math.random().toString(36).substring(2);
             const fileRef = this.storage.ref(randomId);
             fileRef.put(imageFile);
             article.mainImage = randomId;
+
+            const randomIdSecondary = Math.random().toString(36).substring(2);
+            const fileRefSecondary = this.storage.ref(randomIdSecondary);
+            fileRefSecondary.put(secondaryImageFile);
+            article.secondaryImage = randomIdSecondary;
+
             data.mainImage = randomId;
+            data.secondaryImage = randomIdSecondary;
         }
         return this.firestore.collection('articles').add(data);
     }
 
 
-    update(article: Article, imageFile: File): Promise<any> {
+    update(article: Article, images: FileList): Promise<any> {
         console.log('update ' + article);
         let data = {
             title: article.title,
@@ -55,10 +66,10 @@ export class ArticleService {
             dateEnd: article.dateEnd ? firestore.Timestamp.fromDate(article.dateEnd) : null,
             mainImage: ""
         }
-        if (imageFile != null) {
+        if (images.item(0)  != null) {
             const randomId = Math.random().toString(36).substring(2);
             const fileRef = this.storage.ref(randomId);
-            fileRef.put(imageFile);
+            fileRef.put(images.item(0));
             data.mainImage = randomId;
         }
         return this.firestore.doc('articles/' + article.id).update(data);

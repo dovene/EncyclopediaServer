@@ -34,7 +34,7 @@
         </tr>
         <tr>
           <td>Main Image</td>
-          <td><input type="file" name="file" (change)="handleFileInput($event.target.files)"></td>
+          <td><input type="file" name="file" (change)="handleFileInput($event.target.files)" multiple></td>
         </tr>
         <tr>
           <td>Start date</td>
@@ -60,7 +60,6 @@
 
         <tr>
           <td>
-
             <label for="country">Country</label>
           </td>
           <td>
@@ -71,12 +70,24 @@
               </option>
             </select>
           </td>
+
+          <td>
+              <label for="secondaryCountry">Secondary Country</label>
+            </td>
+            <td>
+              <select id="secondaryCountry" (change)="onSecondaryCountrySelected($event.target.value)"
+                [(ngModel)]="currentArticle.secondaryCountry" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let country of countries" [value]="toString(country)">
+                  {{country.name}}
+                </option>
+              </select>
+            </td>
+
         </tr>
 
         <tr>
           <td>
-
-            <label for="personality">Personality</label>
+            <label for="personality">Main  Personality</label>
           </td>
           <td>
             <select id="personality" (change)="onMainPersonalitySelected($event.target.value)"
@@ -86,12 +97,23 @@
               </option>
             </select>
           </td>
+
+          <td>
+              <label for="secondaryPersonality">Secondary  Personality</label>
+            </td>
+            <td>
+              <select id="secondaryPersonality" (change)="onSecondaryPersonalitySelected($event.target.value)"
+                [(ngModel)]="currentArticle.secondaryPersonality" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let personality of personalities" [value]="toString(personality)">
+                  {{personality.fullName}}
+                </option>
+              </select>
+            </td>
         </tr>
 
         <tr>
           <td>
-
-            <label for="topic">Topic</label>
+            <label for="topic">Main Topic</label>
           </td>
           <td>
             <select id="topic" (change)="onMainTopicSelected($event.target.value)"
@@ -101,6 +123,22 @@
               </option>
             </select>
           </td>
+
+
+
+          <td>
+              <label for="secondaryTopic">Secondary Topic</label>
+            </td>
+            <td>
+              <select id="secondaryTopic" (change)="onSecondaryTopicSelected($event.target.value)"
+                [(ngModel)]="currentArticle.secondaryTopic" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let topic of topics" [value]="toString(topic)">
+                  {{topic.name}}
+                </option>
+              </select>
+            </td>
+
+
         </tr>
 
         <tr>
@@ -156,7 +194,7 @@
       <tr *ngFor="let article of articles">
 
         <td align="center">{{article.title}}</td>
-        <td align="center">{{article.content}}</td>
+        <td align="center">{{shortenString(article.content)}}</td>
 
         <td align="center">
           <button mat-stroked-button color="primary" (click)="openDialog(article)">Display Photo</button>

@@ -31,7 +31,12 @@ export class ArticleComponent implements OnInit {
   selectedPersonality: Personality;
   personalities: Personality[];
   selectedTopic: Topic;
+  secondaryTopic: Topic;
+  secondaryCountry: Country;
+  secondaryPersonality: Personality;
+  secondaryImageFile: File;
   topics: Topic[];
+  imageList: FileList;
 
 
   constructor(public articleService: ArticleService,
@@ -68,6 +73,10 @@ export class ArticleComponent implements OnInit {
           mainPersonality: article.mainPersonality,
           sourceName: article.sourceName,
           sourceUrl: article.sourceUrl,
+          mainTopic: article.mainTopic,
+          secondaryTopic: article.secondaryTopic,
+          secondaryCountry: article.secondaryCountry,
+          secondaryPersonality: article.secondaryPersonality,
         } 
       })
     });
@@ -116,15 +125,19 @@ export class ArticleComponent implements OnInit {
     article.mainCountry = this.selectedCountry;
     article.mainPersonality = this.selectedPersonality;
     article.mainTopic = this.selectedTopic;
+    article.secondaryTopic = this.secondaryTopic;
+    article.secondaryCountry = this.secondaryCountry;
+    article.secondaryPersonality = this.secondaryPersonality;
+    
     if (this.isFormInAddMode) {
       // add a new project
-      this.articleService.create(article, this.imageFile)
+      this.articleService.create(article, this.imageFile, this.secondaryImageFile)
         .then(() => {
           this.currentArticle = null;
         })
     } else {
       //update the existing project
-      this.articleService.update(article, this.imageFile)
+      this.articleService.update(article, this.imageList)
         .then(() => {
           this.currentArticle = null;
           // this.goBack()
@@ -166,6 +179,8 @@ export class ArticleComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.imageFile = files.item(0);
+    this.secondaryImageFile = files.item(1);
+    this.imageList = files
   }
 
   deleteRecord(article: Article): void {
@@ -258,8 +273,25 @@ export class ArticleComponent implements OnInit {
    console.log(this.selectedTopic);
   }
 
+  onSecondaryTopicSelected(topic){
+    this.secondaryTopic = <Topic> JSON.parse(topic);
+   console.log(this.secondaryTopic);
+  }
+  onSecondaryCountrySelected(country){
+    this.secondaryCountry = <Country> JSON.parse(country);
+   console.log(this.secondaryCountry);
+  }
+  onSecondaryPersonalitySelected(personality){
+    this.secondaryPersonality = <Personality> JSON.parse(personality);
+   console.log(this.secondaryPersonality);
+  }
+
   toString(anything): string{
     return JSON.stringify(anything);
+  }
+
+  shortenString(anything: string): string{
+    return anything.substr(0,150) ;
   }
 
 }
